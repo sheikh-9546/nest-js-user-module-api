@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { BadRequestException, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Users } from './users.entity';
@@ -11,51 +11,57 @@ export class UsersService {
     private userRepository: Repository<Users>,
   ) {}
 
-
-  // find all
+  
+  // Find all users
   findAll() {
     return this.userRepository.find();
   }
-  // find one
+  
+  
+  // Find a user by their id
   async findOne(id:number) {
     const user = await this.userRepository.findOne({ where: { id: id } });
     if (user) {
       return user;
     }
-  
+    
+    // Throw an error if the user was not found
     throw new HttpException('User not found', HttpStatus.NOT_FOUND);
   }
   
 
-  // create user
+  // Create a new user
   async createUser(user: CreateUserDto): Promise<Users> {
-
-    console.log('users data >>>', user);
-    
-    const newUser = await this.userRepository.create(user);  
-
-    console.log('new User data >>>', newUser);
-      this.userRepository.save(newUser);
-      
-      return newUser;
+    try {
+      const newUser = this.userRepository.create(user);
+      return await this.userRepository.save(newUser);
+    } catch (error) {
+      // If an error occurs while creating the user, throw an error with a descriptive message
+      throw new Error(`Error creating user: ${error}`);
+    }
   }
+ 
 
-  // update user
+  // Update an existing user
   async update(id:number, user: UpdateUserDto): Promise<Users> {
     await this.userRepository.update(id, user);
     const updatedUser = await this.userRepository.findOne({ where: {id: id} });
     if (updatedUser) {
       return updatedUser;
     }
-  
+    
+    // Throw an error if the user was not found
     throw new HttpException('user not found', HttpStatus.NOT_FOUND);
   }
 
-  // delete user by id
+  
+  // Delete a user by their id
   async delete(id: number): Promise<void> {
     const deletedUser= await this.userRepository.delete(id);
     if (!deletedUser.affected) {
-        throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+      
+      // Throw an error if the user was not found
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
     }
   }
 }

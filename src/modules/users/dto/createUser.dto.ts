@@ -12,7 +12,7 @@ export class CreateUserDto {
   @IsString({ message: 'Provide a valid first name as string' })
   @MaxLength(60)
   @Expose({ name: 'first_name' })
-  public readonly firstName!: string;
+  public readonly first_name!: string;
 
 
 
@@ -21,7 +21,7 @@ export class CreateUserDto {
   @IsString({ message: 'Provide a valid first name as string' })
   @MaxLength(60)
   @Expose({ name: 'last_name' })
-  public readonly lastName!: string;
+  public readonly last_name!: string;
 
 
   @ApiProperty({ type: String, example: 'john@doe.com', required: true })
@@ -37,7 +37,7 @@ export class CreateUserDto {
   @IsNumberString({}, { message: 'Phone number is required and must be a valid number' })
   @MaxLength(15)
   @Expose({ name: 'phone_number' })
-  public readonly phoneNumber!: String;
+  public readonly phone_number!: String;
 
   @ApiProperty({ type: String, example: 'password123', required: true })
   @IsString()
