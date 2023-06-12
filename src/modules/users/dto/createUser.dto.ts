@@ -1,7 +1,7 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
-import { IsBoolean, IsEmail, IsEnum, IsIn, IsNotEmpty, IsNumberString, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsEmail, IsEnum, IsIn, IsNotEmpty, IsNumberString, IsOptional, IsString, MaxLength } from 'class-validator';
 import { toLower } from 'lodash';
 import { UserStatusEnum } from '../user.interface';
 
@@ -50,40 +50,5 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Please provide a status!' })
   @IsEnum(UserStatusEnum)
   public readonly status!: UserStatusEnum;
-
-  // @ApiProperty({ type: Date})
-  // @Expose({ name: 'created_at' })
-  // public override createdAt: Date;
-
-
-  // @ApiProperty({ enum: UserStatusEnum, example: UserStatusEnum.INACTIVE, required: true, name: 'status' })
-  // @IsIn([UserStatusEnum.ACTIVE, UserStatusEnum.INACTIVE])
-  // @IsNotEmpty({ message: 'Please provide a status!' })
-  // @IsEnum(UserStatusEnum)
-  // public readonly status!: UserStatusEnum;
-
-  // @this.createdAt
-  // @Expose({ name: 'created_at' })
-  // public override createdAt: Date;
-
-  // @UpdatedAt
-  // @Expose({ name: 'updated_at' })
-  // public override updatedAt: Date;
-
-  // @DeletedAt
-  // @Expose({ name: 'deleted_at' })
-  // public override deletedAt: Date;
-
-  // @Type(() => Number)
-  // @Expose({ name: 'created_by' })
-  // @Column({ allowNull: true })
-  // public createdBy: number;
-
-  // @Type(() => Number)
-  // @Expose({ name: 'updated_by' })
-  // @Column({ allowNull: true })
-  // public updatedBy: number;
-
-
 
 }

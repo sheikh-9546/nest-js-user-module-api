@@ -1,11 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert } from 'typeorm';
-import * as crypto from 'crypto';
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, BaseEntity } from 'typeorm';
 import { UserStatusEnum } from './user.interface';
 import * as argon2 from 'argon2';
+import { CommonEntity } from '@app/database/entities/common.entity';
 
 
 @Entity()
-export class Users {
+export class Users extends CommonEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
