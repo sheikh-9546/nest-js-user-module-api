@@ -81,7 +81,7 @@ export const NOTIFICATION_QUEUE = 'NOTIFICATION_QUEUE';
 export enum ErrorCode {
     LOGIN_CREDENTIAL_MESSAGE = 'Invalid user credentials, please provide valid user credential',
     TOO_MANY_REQUEST_MESSAGE = 'Too many request. Your requests are temporarily blocked',
-    EMAIL_EXISTS_MESSAGE = 'Provided email address already exists.',
+    EMAIL_EXISTS_MESSAGE = 'User email address already exists.',
     EMAIL_ALREADY_VERIFIED_MESSAGE = 'Email address already verified',
     PHONE_EXISTS_MESSAGE = 'Provided phone already exists.',
     INVALID_USER_CREDENTIAL_MESSAGE = 'The email is not registered',

@@ -28,7 +28,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
             password: password,
             database: database,
             logging: !isProduction,
-            migrations: [`../migrations/*.{js,ts}`],
+            migrations: [`src/database/migrations/*.{js,ts}`],
             seeds: [`../seeds/*.{js,ts}`],
             keepConnectionAlive: true,
             autoLoadEntities: true,

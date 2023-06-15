@@ -1,9 +1,10 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
-import { IsEmail, IsEnum, IsIn, IsNotEmpty, IsNumberString, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsEmail, IsEnum, IsIn, IsNotEmpty, IsNumberString, IsString, MaxLength, Validate } from 'class-validator';
 import { toLower } from 'lodash';
 import { UserStatusEnum } from '../user.interface';
+import { IsUserEmailUniqueRule } from '@app/rules/user/is.user.email.unique.rule';
 
 export class CreateUserDto {
 
@@ -26,11 +27,11 @@ export class CreateUserDto {
 
   @ApiProperty({ type: String, example: 'john@doe.com', required: true })
   @IsEmail({}, { message: 'Invalid email format' })
+ @Validate(IsUserEmailUniqueRule)
   @IsNotEmpty({ message: 'Email is required!' })
   @IsString({ message: 'Provide a valid email as sting' })
   @Transform(({ value }) => value && toLower(value))
   @MaxLength(200)
-  @Expose()
   public readonly email!: string;
 
   @ApiProperty({ type: String, example: '+19898232323', required: true , name:'phone_number'})
