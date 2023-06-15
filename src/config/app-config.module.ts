@@ -1,9 +1,9 @@
 import { DataSource, DataSourceOptions } from 'typeorm';
-import { TypeOrmConfigService } from 'src/database/typeorm.config';
+import { TypeOrmConfigService } from '@app/database/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { Global, Module } from '@nestjs/common';
-import configuration from './configuration';
+import configuration from '@app/config/configuration';
 
 @Global()
 @Module({

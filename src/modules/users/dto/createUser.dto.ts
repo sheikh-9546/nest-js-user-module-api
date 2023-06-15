@@ -1,9 +1,10 @@
 
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Transform } from 'class-transformer';
-import { IsBoolean, IsEmail, IsEnum, IsIn, IsNotEmpty, IsNumberString, IsOptional, IsString, MaxLength } from 'class-validator';
+import { IsEmail, IsEnum, IsIn, IsNotEmpty, IsNumberString, IsString, MaxLength, Validate } from 'class-validator';
 import { toLower } from 'lodash';
 import { UserStatusEnum } from '../user.interface';
+import { IsUserEmailUniqueRule } from '@app/rules/user/is.user.email.unique.rule';
 
 export class CreateUserDto {
 
@@ -12,7 +13,7 @@ export class CreateUserDto {
   @IsString({ message: 'Provide a valid first name as string' })
   @MaxLength(60)
   @Expose({ name: 'first_name' })
-  public readonly firstName!: string;
+  public readonly first_name!: string;
 
 
 
@@ -21,23 +22,23 @@ export class CreateUserDto {
   @IsString({ message: 'Provide a valid first name as string' })
   @MaxLength(60)
   @Expose({ name: 'last_name' })
-  public readonly lastName!: string;
+  public readonly last_name!: string;
 
 
   @ApiProperty({ type: String, example: 'john@doe.com', required: true })
   @IsEmail({}, { message: 'Invalid email format' })
+ @Validate(IsUserEmailUniqueRule)
   @IsNotEmpty({ message: 'Email is required!' })
   @IsString({ message: 'Provide a valid email as sting' })
   @Transform(({ value }) => value && toLower(value))
   @MaxLength(200)
-  @Expose()
   public readonly email!: string;
 
   @ApiProperty({ type: String, example: '+19898232323', required: true , name:'phone_number'})
   @IsNumberString({}, { message: 'Phone number is required and must be a valid number' })
   @MaxLength(15)
   @Expose({ name: 'phone_number' })
-  public readonly phoneNumber!: String;
+  public readonly phone_number!: String;
 
   @ApiProperty({ type: String, example: 'password123', required: true })
   @IsString()
@@ -50,40 +51,5 @@ export class CreateUserDto {
   @IsNotEmpty({ message: 'Please provide a status!' })
   @IsEnum(UserStatusEnum)
   public readonly status!: UserStatusEnum;
-
-  // @ApiProperty({ type: Date})
-  // @Expose({ name: 'created_at' })
-  // public override createdAt: Date;
-
-
-  // @ApiProperty({ enum: UserStatusEnum, example: UserStatusEnum.INACTIVE, required: true, name: 'status' })
-  // @IsIn([UserStatusEnum.ACTIVE, UserStatusEnum.INACTIVE])
-  // @IsNotEmpty({ message: 'Please provide a status!' })
-  // @IsEnum(UserStatusEnum)
-  // public readonly status!: UserStatusEnum;
-
-  // @this.createdAt
-  // @Expose({ name: 'created_at' })
-  // public override createdAt: Date;
-
-  // @UpdatedAt
-  // @Expose({ name: 'updated_at' })
-  // public override updatedAt: Date;
-
-  // @DeletedAt
-  // @Expose({ name: 'deleted_at' })
-  // public override deletedAt: Date;
-
-  // @Type(() => Number)
-  // @Expose({ name: 'created_by' })
-  // @Column({ allowNull: true })
-  // public createdBy: number;
-
-  // @Type(() => Number)
-  // @Expose({ name: 'updated_by' })
-  // @Column({ allowNull: true })
-  // public updatedBy: number;
-
-
 
 }

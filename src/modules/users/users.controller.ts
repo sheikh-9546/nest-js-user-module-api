@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes } from '@nestjs/common';
 import { Users } from './users.entity';
 import { UsersService } from './users.service';
 import { CreateUserDto,UpdateUserDto } from './dto/index.dto';
@@ -22,8 +22,6 @@ export class UsersController {
 
   @Post('create')
   async create(@Body() user: CreateUserDto): Promise<Users> {
-    console.log('user conroller data >>>',user);
-
     return await this.usersService.createUser(user);
   }
 
