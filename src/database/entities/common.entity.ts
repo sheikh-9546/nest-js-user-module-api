@@ -1,5 +1,4 @@
- import { Exclude, Expose, Type } from 'class-transformer';
-import { number } from 'joi';
+ import { Expose } from 'class-transformer';
 import { Column, CreateDateColumn, DeleteDateColumn, UpdateDateColumn } from 'typeorm';
 
 export abstract class CommonEntity {

@@ -5,9 +5,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmConfigService } from './database/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [ConfigModule.forRoot({
+  imports: [JwtModule.register({
+    secret: process.env.JWT_SECRET,
+    signOptions: { expiresIn: '30d' },
+  }),ConfigModule.forRoot({
     isGlobal: true,
   }),
   TypeOrmModule.forRootAsync({

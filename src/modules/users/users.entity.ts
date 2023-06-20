@@ -9,6 +9,9 @@ export class Users extends CommonEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @PrimaryGeneratedColumn('uuid')
+  internal_uuid!: string;
+
   @Column({ nullable: false })
   first_name!: string;
 

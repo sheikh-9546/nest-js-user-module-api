@@ -27,7 +27,7 @@ export class CreateUserDto {
 
   @ApiProperty({ type: String, example: 'john@doe.com', required: true })
   @IsEmail({}, { message: 'Invalid email format' })
- @Validate(IsUserEmailUniqueRule)
+//  @Validate(IsUserEmailUniqueRule)
   @IsNotEmpty({ message: 'Email is required!' })
   @IsString({ message: 'Provide a valid email as sting' })
   @Transform(({ value }) => value && toLower(value))
